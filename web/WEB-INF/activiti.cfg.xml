@@ -41,7 +41,7 @@
 		<property name="jobExecutorActivate" value="false" />
 		<property name="customFormTypes">
 			<list>
-				<bean class="pmis.webflow.UserFormType" />
+				<bean class="org.openwebflow.UserFormType" />
 			</list>
 		</property>
 	</bean>
@@ -60,15 +60,15 @@
 		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
 	</bean>
 
-	<bean id="deploymentManager" class="pmis.webflow.ioc.BPMNDeploymentManager">
+	<bean id="deploymentManager" class="org.openwebflow.ioc.BPMNDeploymentManager">
 		<property name="processEngine" ref="processEngine" />
 		<property name="modelDirPath" value="/WEB-INF/models/" />
 	</bean>
 
-	<bean id="identityService" class="pmis.webflow.MyIdentityService">
+	<bean id="identityService" class="org.openwebflow.MyIdentityService">
 	</bean>
 
-	<bean id="customProcessActionHandlerFactory" class="pmis.webflow.mvc.ext.AnnotationedEventHandlerFactory">
+	<bean id="customProcessActionHandlerFactory" class="org.openwebflow.mvc.ext.AnnotationedEventHandlerFactory">
 		<property name="basePackages">
 			<list>
 				<value>demo.mvc</value>
@@ -76,14 +76,14 @@
 		</property>
 	</bean>
 
-	<bean id="webFlowConfiguration" class="pmis.webflow.mvc.SimpleWebFlowConfiguration">
+	<bean id="webFlowConfiguration" class="org.openwebflow.mvc.SimpleWebFlowConfiguration">
 		<property name="defaultStartProcessFormView" value="/startProcessForm" />
 		<property name="defaultStartProcessActionView" value="/doStartProcess" />
 		<property name="defaultCompleteTaskFormView" value="/completeTaskForm" />
 		<property name="defaultCompleteTaskActionView" value="/doCompleteTask" />
 		<property name="defaultClaimTaskActionView" value="redirect:/workflow/listTaskQueue.action" />
 		<property name="formVariablesFilter">
-			<bean class="pmis.webflow.mvc.PrefixFormVariablesFilter">
+			<bean class="org.openwebflow.mvc.PrefixFormVariablesFilter">
 				<property name="prefix" value="var_" />
 			</bean>
 		</property>

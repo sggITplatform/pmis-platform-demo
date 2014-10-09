@@ -26,21 +26,24 @@
 <%@ include file="/WEB-INF/view/_header.jsp" %>
 <div style="margin: 10pt;"> <!-- InstanceBeginEditable name="EditRegion2" -->
   <c:if test="${param.denied}"> <span class="STYLE112">访问当前模块，请先登录！</span></c:if>
-  <form method="POST" action="doLogin.action">
+  	<p><font size="4">注意：您正在使用本地的登录服务！</font> </p>
+  <form method="POST" action="j_spring_security_check">
     <p>
-      <input type="radio" value="kermit" name="R1" checked>
-      kermit（经理）</p>
-    <p>
-      <input type="radio" value="gonzo" name="R1">
-      gonzo（销售员工）</p>
-    <p>
-      <input type="radio" value="fozzie" name="R1">
-      fozzie（工程师）</p>
+      用户名：<input type="text" name="j_username" size="20" value="kermit"></p>
+	<p>
+      密码：<input type="password" name="j_password" size="20" value="kermit"></p>
+	<p>
+      可用的账号：kermit（经理）、gonzo（销售员工）、fozzie（工程师）</p>
     <p>
       <input type="submit" value="提交" name="B1">
       <input type="reset" value="重置" name="B2">
     </p>
-  </form>
+    <hr>
+    <p>采用统一认证服务器登录：<a href="./oauth/sparklr" class="btn btn-primary">连接PMIS平台认证服务器</a>
+	<a href="./oauth/gmail" class="btn btn-warning">连接Gmail服务器</a>
+	<a href="./oauth/facebook" class="btn btn-danger">连接Facebook服务器</a>
+	</p>
+    </form>
   <!-- InstanceEndEditable --> </div>
 </body>
 <!-- InstanceEnd -->

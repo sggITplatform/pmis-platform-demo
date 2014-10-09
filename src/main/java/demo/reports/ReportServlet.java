@@ -28,21 +28,13 @@ public class ReportServlet extends HttpServlet
 			IOException
 	{
 		String docType = request.getParameter("type");
-		String name = request.getParameter("name");
-		// 取得jrxml文件路径
-		String jaseperPath = this.getServletContext().getRealPath(String.format("/WEB-INF/jrxml/%s.jasper", name));
-		ReportUtils jasperReport = new ReportUtils(request, response);
 
-		// 传递报表中(SQL)用到的参数值:$P{ProjectName}
+		// 取得jrxml文件路径
+		ReportUtils jasperReport = new ReportUtils(request, response);
 		Map params = new HashMap();
-		// "Name"是报表中定义过的一个参数名称,其类型为String 型
-		// params.put("ProjectName", new String("Project1"));
-		//path + "jrxml\\report3.jrxml"
 		try
 		{
-			// 编译成jasper
-			jasperReport.complieJrxml(
-				this.getServletContext().getRealPath(String.format("/WEB-INF/jrxml/%s.jrxml", name)), jaseperPath);
+			String jaseperPath = this.getServletContext().getRealPath("/WEB-INF/jrxml/report1.jasper");
 			jasperReport
 					.servletExportDocument(getEnumDocType(docType), jaseperPath, params, getTestRecords(), "员工信息报表");
 		}

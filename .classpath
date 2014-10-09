@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="D:/eclipse-3.7/plugins/org.apache.derby.core_10.1.1/derbytools.jar"/>
 	<classpathentry kind="lib" path="D:/eclipse-3.7/plugins/org.apache.derby.core_10.1.1/derbynet.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/pmis-platform"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/openwebflow"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

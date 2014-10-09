@@ -12,13 +12,13 @@
 
 	<context:annotation-config />
 	<!-- 把标记了@Controller注解的类转换为bean -->
-	<context:component-scan base-package="pmis.webflow.mvc" />
+	<context:component-scan base-package="org.openwebflow.mvc" />
 	<context:component-scan base-package="demo.mvc" />
 
 	<!-- 支持自定义的ProcessRequest、TaskRequest参数绑定 -->
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
-			<bean class="pmis.webflow.mvc.support.WebFlowHandlerMethodArgumentResolver" />
+			<bean class="org.openwebflow.mvc.support.WebFlowHandlerMethodArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
@@ -34,5 +34,18 @@
 	<!-- Method Mapping -->
 	<bean id="methodNameResolver"
 		class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver" />
+
+	<bean id="contentViewResolver"
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json" />
+			</map>
+		</property>
+		<property name="defaultViews">
+			<bean
+				class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+		</property>
+	</bean>
 
 </beans>

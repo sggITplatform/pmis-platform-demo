@@ -51,8 +51,13 @@
         <button type="submit" class="btn btn-default">search</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">${pageContext.request.userPrincipal.name}</a></li>
-        <li><a href="${pageContext.request.contextPath}/login.jsp">登录</a></li>
+	  	<c:if test="${pageContext.request.userPrincipal.name!=null}">
+        <li><a>${pageContext.request.userPrincipal.name}</a></li>
+        <li><a href="${pageContext.request.contextPath}/j_spring_security_logout">退出</a></li>
+		</c:if>
+	  	<c:if test="${pageContext.request.userPrincipal.name==null}">
+        <li><a href="${pageContext.request.contextPath}/login.jsp">我要登录</a></li>
+		</c:if>
       </ul>
     	<p>　</div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

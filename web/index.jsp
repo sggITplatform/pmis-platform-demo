@@ -40,7 +40,7 @@
     <li>工作流OpenWebFlow <a href="./docs/javadoc/index.html?pmis/webflow/mvc/ext/EventContextHolder.html" target="_blank" class="btn-primary">查看Java API</a> </li>
     <li>commons组件 <a href="docs/javadoc/index.html" target="_blank" class="btn-primary">查看Java API</a> </li>
     <li>图表charts组件 <a href="./bar.html" target="_blank" class="btn-warning">柱状图示例</a> <a href="./pie.html" target="_blank" class="btn-warning">饼图示例</a> <a href="http://echarts.baidu.com/doc/example.html" target="_blank" class="btn-warning">更多示例</a></li>
-    <li>报表组件 <a href="./report?name=testDoc&type=pdf" target="_blank" class="btn-warning">查看示例1</a> <a href="./report?name=testDoc&type=doc" target="_blank" class="btn-warning">查看示例2</a> <a href="docs/javadoc/index.html?pmis/commons/reports/ReportUtils.html" target="_blank" class="btn-primary">查看Java API</a></li>
+    <li>报表组件 <a href="./report?type=pdf" target="_blank" class="btn-warning">查看PDF输出示例</a> <a href="./report?type=doc" target="_blank" class="btn-warning">查看Word输出示例</a> <a href="docs/javadoc/index.html?pmis/commons/reports/ReportUtils.html" target="_blank" class="btn-primary">查看Java API</a></li>
     <li>校验码生成组件 <a href="./kaptcha.jpg" target="_blank" class="btn-warning">查看示例</a></li>
     <li>甘特图组件 <a href="./gantt.htm" target="_blank" class="btn-warning">查看示例</a></li>
   </ul>

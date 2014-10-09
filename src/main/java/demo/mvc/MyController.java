@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.ProcessEngine;
 import org.apache.log4j.Logger;
+import org.openwebflow.mvc.support.TaskHelper;
+import org.openwebflow.mvc.support.WebFlowHelperHolder;
+import org.openwebflow.mvc.support.WebFlowParam;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -15,9 +18,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import pmis.webflow.mvc.support.TaskHelper;
-import pmis.webflow.mvc.support.WebFlowHelperHolder;
-import pmis.webflow.mvc.support.WebFlowParam;
 
 @Controller
 public class MyController
@@ -39,14 +39,5 @@ public class MyController
 		Logger.getLogger(this.getClass()).info("...........doCompleteAdjustTask...........");
 
 		return "/doCompleteTask";
-	}
-
-	@RequestMapping("/doLogin.action")
-	public String doLogin(String R1)
-	{
-		String userId = R1;//SecurityContextHolder.getContext().getAuthentication().getName();
-		SecurityContextHolder.getContext().setAuthentication(
-			new PreAuthenticatedAuthenticationToken(new MyUserDetails(userId, userId, true), null));
-		return "redirect:/";
 	}
 }
