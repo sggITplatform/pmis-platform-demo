@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2-1.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<context:annotation-config />
+	<!-- 把标记了@Controller注解的类转换为bean -->
+	<context:component-scan base-package="demo.ioc" />
+
+	<!--Spring3.1开始的注解 HandlerMapping -->
+	<beans:bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
+	<!--Spring3.1开始的注解 HandlerAdapter -->
+	<beans:bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<beans:property name="customArgumentResolvers">
+			<beans:list>
+				<beans:bean
+					class="pmis.webflow.mvc.support.WebFlowHandlerMethodArgumentResolver" />
+				<beans:bean
+					class="pmis.webflow.mvc.ext.EventHandlerMethodArgumentResolver" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+	<beans:import resource="activiti.cfg.xml" />
+	<http auto-config="true" access-denied-page="/common/403.jsp">
+		<!-- intercept-url:拦截器,可以设定哪些路径需要哪些权限来访问. filters=none 不使用过滤,也可以理解为忽略 -->
+		<!-- 
+		<intercept-url pattern="/workflow/**" access="ROLE_ADMIN" />
+		 -->
+		<form-login authentication-failure-url="/login.jsp?authentication_error=true"
+			login-page="/login.jsp?denied=true" login-processing-url="/j_spring_security_check" />
+		<logout invalidate-session="true" logout-success-url="/logoutSuccess.jsp"
+			logout-url="/j_spring_security_logout" />
+	</http>
+	<authentication-manager />
+
+	<!-- 设置servletContext中可访问的spring beans -->
+	<beans:bean class="demo.ioc.SpringToolBox">
+		<beans:property name="name" value="tools" />
+		<beans:property name="tools">
+			<!-- map中存储可访问的spring bean及其变量名 -->
+			<beans:map>
+				<beans:entry key="processTool">
+					<beans:bean class="demo.ioc.ProcessTool"></beans:bean>
+				</beans:entry>
+			</beans:map>
+		</beans:property>
+	</beans:bean>
+
+</beans:beans>  

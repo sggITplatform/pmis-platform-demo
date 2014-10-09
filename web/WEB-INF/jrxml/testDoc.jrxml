@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report6" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e22810c8-7f87-4d72-852a-05445fef9439">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     *
+FROM
+     `user` user]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sex" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="age" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="211" y="21" width="154" height="39" uuid="15ec46b8-46ef-42ce-87f1-0a5a31f5a061"/>
+				<textElement>
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Word文档测试]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="53" y="31" width="100" height="20" uuid="3278fdcf-2597-4979-8248-081a01425d0b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="31" width="100" height="20" uuid="cc8d3922-c22d-47e8-9bdd-3790db74c72a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="31" width="100" height="20" uuid="f1ec6ae6-adb2-4d94-997e-04792a6e117e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="110" splitType="Stretch">
+			<staticText>
+				<reportElement x="53" y="11" width="100" height="20" uuid="c4841f50-08ed-49e3-8774-0ae9da22795d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="11" width="100" height="20" uuid="07e65173-2e4a-4101-9b4e-dcf357e32a22"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="11" width="100" height="20" uuid="aa1a59bf-e73a-4d30-9a54-d4a22bef36a9"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="53" y="40" width="100" height="20" uuid="d08a32e2-0bb2-44a9-9ebc-c2dba3853342"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="40" width="100" height="20" uuid="bd6e8a81-e59b-4393-826d-2f3474d84976"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="40" width="100" height="20" uuid="4d1d3da0-2b93-47d0-a6f2-21fdc7e43b69"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="53" y="69" width="100" height="20" uuid="c75b8396-8b80-454e-8c1a-afbf1732c493"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="69" width="100" height="20" uuid="04dcec1b-496b-43a1-9bbb-aa9daa052ff6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="69" width="100" height="20" uuid="9e757d6a-9dc9-483a-bba6-74dad7495921"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[文字测试]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

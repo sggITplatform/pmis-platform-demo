@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8094fd59-f492-444e-88dc-c301c5c60731">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="Table Dataset 1" uuid="f3ea0943-d090-414a-9454-fb7625b6dab6"/>
+	<queryString>
+		<![CDATA[SELECT * FROM user;]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sex" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="age" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="195" y="12" width="154" height="28" uuid="96b29029-ea4d-4501-a96d-e12a3438544b"/>
+				<box rightPadding="2"/>
+				<textElement textAlignment="Center">
+					<font size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[员工信息表]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="21" y="10" width="100" height="20" uuid="e0831d5f-6fcb-48dc-957c-7bf9c92b98a5"/>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[员工编号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="169" y="10" width="100" height="20" uuid="f2c354f2-243d-4167-8cee-7881f71b2fd2"/>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[员工姓名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="10" width="100" height="20" uuid="320824ef-82cd-4b70-86d7-2808d4682dbb"/>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[员工性别]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="10" width="100" height="20" uuid="dfbd4ea7-cbe9-4d4f-90fb-07d4a1267095"/>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[年龄]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="21" y="0" width="100" height="20" uuid="93f8155a-117b-4a21-946e-393941b8e26f"/>
+				<box leftPadding="15" rightPadding="0"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="169" y="0" width="100" height="20" uuid="48605aa5-1004-484f-bcd0-c8abea7f0a87"/>
+				<box leftPadding="9" rightPadding="0"/>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="308" y="0" width="100" height="20" uuid="66e452e5-3fd2-43ba-946d-9950e89bf7a3"/>
+				<box leftPadding="9" rightPadding="0"/>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="444" y="0" width="100" height="20" uuid="7773023a-f586-4d64-9193-618f253a6f0c"/>
+				<box leftPadding="4" rightPadding="0"/>
+				<textFieldExpression><![CDATA[$F{age}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

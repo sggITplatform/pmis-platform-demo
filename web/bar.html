@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="GBK">
+    <title>柱图</title>
+    <!-- 来自百度CDN -->
+    <script src="resources/echarts-2.0.4/js/esl/esl.js"></script>
+    
+     <script type="text/javascript">
+   
+   var filelocaltion="resources/echarts-2.0.4/js/echarts";
+   
+   require.config({
+       paths:{ 
+           echarts:filelocaltion,
+           'echarts/chart/bar' : filelocaltion,
+          // 'echarts/chart/line': filelocaltion,
+           'echarts/chart/pie' : filelocaltion,
+       }
+   });
+
+   require(
+       [
+           'echarts',
+           'echarts/chart/bar',
+           //'echarts/chart/line',
+           'echarts/chart/pie'
+       ],
+       displayBarChart
+      
+   );
+   
+	
+	
+   //柱状图
+   function displayBarChart(ec){
+		 var myChart = ec.init(document.getElementById('bar'));
+		 myChart.setOption(getBarChartOption());
+      
+		}
+
+	function getBarChartOption(){
+		return  option={
+				
+		width:200,
+		height:200,
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:['收入','支出']
+        },
+        toolbox: {
+            show : true,
+            feature : {
+                mark : {show: true},
+                dataView : {show: true, readOnly: false},
+                magicType : {show: true, type: ['line', 'bar']},
+                restore : {show: true},
+                saveAsImage : {show: true}
+            }
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value',
+                splitArea : {show : true}
+            }
+        ],
+        series : [
+            {
+                name:'收入',
+                type:'bar',
+                data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+            },
+            {
+                name:'支出',
+                type:'bar',
+                data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+            }
+        ]
+				
+	}
+		
+	}
+   </script>
+    
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="bar" style="height:300px"></div>
+    
+ </body>

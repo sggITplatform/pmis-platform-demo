@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/tx   http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url" value="jdbc:h2:mem:activiti;DB_CLOSE_DELAY=1000" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+		<property name="initialSize" value="20" />
+		<property name="maxActive" value="50" />
+		<property name="maxIdle" value="20" />
+		<property name="minIdle" value="10" />
+	</bean>
+<!-- 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/activitidb?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="root" />
+		<property name="password" value="1" />
+		<property name="initialSize" value="20" />
+		<property name="maxActive" value="50" />
+		<property name="maxIdle" value="20" />
+		<property name="minIdle" value="10" />
+	</bean>
+ -->
+
+	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+		<!-- 
+		<property name="identityService" ref="identityService" />
+		 -->
+		<property name="dataSource" ref="dataSource" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="databaseSchemaUpdate" value="true" />
+		<property name="jobExecutorActivate" value="false" />
+		<property name="customFormTypes">
+			<list>
+				<bean class="pmis.webflow.UserFormType" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- Only for TEST!!! -->
+	<bean class="demo.mvc.PrepareTestUserRecords">
+		<property name="processEngine" ref="processEngine"></property>
+	</bean>
+
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+
+	<bean id="deploymentManager" class="pmis.webflow.ioc.BPMNDeploymentManager">
+		<property name="processEngine" ref="processEngine" />
+		<property name="modelDirPath" value="/WEB-INF/models/" />
+	</bean>
+
+	<bean id="identityService" class="pmis.webflow.MyIdentityService">
+	</bean>
+
+	<bean id="customProcessActionHandlerFactory" class="pmis.webflow.mvc.ext.AnnotationedEventHandlerFactory">
+		<property name="basePackages">
+			<list>
+				<value>demo.mvc</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="webFlowConfiguration" class="pmis.webflow.mvc.SimpleWebFlowConfiguration">
+		<property name="defaultStartProcessFormView" value="/startProcessForm" />
+		<property name="defaultStartProcessActionView" value="/doStartProcess" />
+		<property name="defaultCompleteTaskFormView" value="/completeTaskForm" />
+		<property name="defaultCompleteTaskActionView" value="/doCompleteTask" />
+		<property name="defaultClaimTaskActionView" value="redirect:/workflow/listTaskQueue.action" />
+		<property name="formVariablesFilter">
+			<bean class="pmis.webflow.mvc.PrefixFormVariablesFilter">
+				<property name="prefix" value="var_" />
+			</bean>
+		</property>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>
