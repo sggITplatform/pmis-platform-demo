@@ -3,11 +3,11 @@
     <meta charset="GBK">
     <title>饼图</title>
     <!-- 来自百度CDN -->
-    <script src="resources/echarts-2.0.4/js/esl/esl.js"></script>
+    <script src="resources/js/esl/esl.js"></script>
     
      <script type="text/javascript">
    
-   var filelocaltion="resources/echarts-2.0.4/js/echarts";
+   var filelocaltion="resources/js/echarts";
    
    require.config({
        paths:{ 
@@ -30,10 +30,8 @@
 		}
 
 	function getPieChartOption(){
-
-
 		
-		return option = {
+		var pieChartOption  = {
 			    title : {
 			        text: '某站点用户访问来源',
 			        subtext: '纯属虚构',
@@ -73,9 +71,9 @@
 			            ]
 			        }
 			    ]
-			};
+			}
+		return pieChartOption;
 			                    
-			
 		}
 
    </script>

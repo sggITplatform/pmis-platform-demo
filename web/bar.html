@@ -3,11 +3,11 @@
     <meta charset="GBK">
     <title>柱图</title>
     <!-- 来自百度CDN -->
-    <script src="resources/echarts-2.0.4/js/esl/esl.js"></script>
+    <script src="resources/js/esl/esl.js"></script>
     
      <script type="text/javascript">
    
-   var filelocaltion="resources/echarts-2.0.4/js/echarts";
+   var filelocaltion="resources/js/echarts";
    
    require.config({
        paths:{ 
@@ -26,9 +26,11 @@
            'echarts/chart/pie'
        ],
        displayBarChart
-      
    );
    
+
+
+ 
 	
 	
    //柱状图
@@ -39,10 +41,8 @@
 		}
 
 	function getBarChartOption(){
-		return  option={
-				
-		width:200,
-		height:200,
+		
+		var barChartOption={
         tooltip : {
             trigger: 'axis'
         },
@@ -86,6 +86,7 @@
         ]
 				
 	}
+		return barChartOption;
 		
 	}
    </script>
