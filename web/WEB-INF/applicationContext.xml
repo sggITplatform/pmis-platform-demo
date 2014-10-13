@@ -1,47 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 	<context:annotation-config />
-	<!-- 把标记了@Controller注解的类转换为bean -->
+	<!-- 处理@Resource -->
 	<context:component-scan base-package="demo.ioc" />
 
-	<!--Spring3.1开始的注解 HandlerMapping -->
-	<beans:bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />
-	<!--Spring3.1开始的注解 HandlerAdapter -->
-	<beans:bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-		<beans:property name="customArgumentResolvers">
-			<beans:list>
-				<beans:bean
-					class="org.openwebflow.mvc.support.WebFlowHandlerMethodArgumentResolver" />
-				<beans:bean
-					class="org.openwebflow.mvc.ext.EventHandlerMethodArgumentResolver" />
-			</beans:list>
-		</beans:property>
-	</beans:bean>
-
-	<beans:import resource="activiti.cfg.xml" />
-	<beans:import resource="security.xml" />
+	<import resource="activiti.cfg.xml" />
+	<import resource="security.xml" />
 	
 	<!-- 设置servletContext中可访问的spring beans -->
-	<beans:bean class="demo.ioc.SpringToolBox">
-		<beans:property name="name" value="tools" />
-		<beans:property name="tools">
+	<bean class="demo.ioc.SpringToolBox">
+		<property name="name" value="tools" />
+		<property name="tools">
 			<!-- map中存储可访问的spring bean及其变量名 -->
-			<beans:map>
-				<beans:entry key="processTool">
-					<beans:bean class="demo.ioc.ProcessTool"></beans:bean>
-				</beans:entry>
-			</beans:map>
-		</beans:property>
-	</beans:bean>
+			<map>
+				<entry key="processTool">
+					<bean class="demo.ioc.ProcessTool"></bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
 
-</beans:beans>  
+	<bean id="bussinessDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="root" />
+		<property name="password" value="1" />
+		<property name="initialSize" value="20" />
+		<property name="maxActive" value="50" />
+		<property name="maxIdle" value="20" />
+		<property name="minIdle" value="10" />
+	</bean>
+
+	<bean id="vacationRequestService" class="demo.service.VacationRequestService">
+	</bean>
+	
+</beans>  

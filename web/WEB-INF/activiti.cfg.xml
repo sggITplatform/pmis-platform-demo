@@ -16,7 +16,8 @@
 		<property name="maxIdle" value="20" />
 		<property name="minIdle" value="10" />
 	</bean>
-<!-- 
+ 
+	<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -29,7 +30,7 @@
 		<property name="maxIdle" value="20" />
 		<property name="minIdle" value="10" />
 	</bean>
- -->
+ 	-->
 
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 		<!-- 
@@ -39,11 +40,23 @@
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="databaseSchemaUpdate" value="true" />
 		<property name="jobExecutorActivate" value="false" />
+		
+		<!-- 邮件服务器 -->
+		<property name="mailServerHost" value="smtp.cnic.cn" />
+		<property name="mailServerPort" value="25" />
+		<property name="mailServerDefaultFrom" value="bluejoe@cnic.cn" />
+		<property name="mailServerUsername" value="sdb-support@cnic.cn" />
+		<property name="mailServerPassword" value="sdb-support@cnic.cn" />
+		
 		<property name="customFormTypes">
 			<list>
 				<bean class="org.openwebflow.UserFormType" />
 			</list>
 		</property>
+		
+		<!-- 自动部署 -->
+		<property name="deploymentResources" value="./WEB-INF/models/*.bpmn" />
+		<property name="deploymentMode" value="single-resource" />
 	</bean>
 
 	<bean id="transactionManager"
@@ -55,25 +68,12 @@
 	<bean class="demo.mvc.PrepareTestUserRecords">
 		<property name="processEngine" ref="processEngine"></property>
 	</bean>
-
+ 
 	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
 		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
 	</bean>
 
-	<bean id="deploymentManager" class="org.openwebflow.ioc.BPMNDeploymentManager">
-		<property name="processEngine" ref="processEngine" />
-		<property name="modelDirPath" value="/WEB-INF/models/" />
-	</bean>
-
 	<bean id="identityService" class="org.openwebflow.MyIdentityService">
-	</bean>
-
-	<bean id="customProcessActionHandlerFactory" class="org.openwebflow.mvc.ext.AnnotationedEventHandlerFactory">
-		<property name="basePackages">
-			<list>
-				<value>demo.mvc</value>
-			</list>
-		</property>
 	</bean>
 
 	<bean id="webFlowConfiguration" class="org.openwebflow.mvc.SimpleWebFlowConfiguration">

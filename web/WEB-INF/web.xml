@@ -89,4 +89,20 @@
 		<servlet-name>oauth</servlet-name>
 		<url-pattern>/oauth/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+    <servlet-name>ExplorerRestletServlet</servlet-name>
+    <servlet-class>org.restlet.ext.servlet.ServerServlet</servlet-class>
+    <init-param>
+        <!-- Application class name -->
+        <param-name>org.restlet.application</param-name>
+        <param-value>org.activiti.explorer.rest.ExplorerRestApplication</param-value>
+    </init-param>
+	</servlet>
+	 
+	<servlet-mapping>
+	    <servlet-name>ExplorerRestletServlet</servlet-name>
+	    <url-pattern>/service/*</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

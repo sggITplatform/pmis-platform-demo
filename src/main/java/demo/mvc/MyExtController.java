@@ -8,19 +8,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.ProcessEngine;
 import org.apache.log4j.Logger;
-import org.openwebflow.mvc.support.TaskHelper;
-import org.openwebflow.mvc.support.WebFlowHelperHolder;
-import org.openwebflow.mvc.support.WebFlowParam;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
+import org.openwebflow.mvc.helper.TaskHelper;
+import org.openwebflow.mvc.helper.WebFlowHelperHolder;
+import org.openwebflow.mvc.helper.WebFlowParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
-public class MyController
+public class MyExtController
 {
 	@Resource(name = "processEngine")
 	private ProcessEngine _processEngine;

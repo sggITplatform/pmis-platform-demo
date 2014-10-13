@@ -15,17 +15,23 @@
 	<context:component-scan base-package="org.openwebflow.mvc" />
 	<context:component-scan base-package="demo.mvc" />
 
+	<!-- ActionHandler注册器，WebFlowDispatcherController会用到 -->
+	<bean id="customProcessActionHandlerFactory"
+		class="org.openwebflow.mvc.event.AnnotationedEventHandlerFactory">
+	</bean>
+
 	<!-- 支持自定义的ProcessRequest、TaskRequest参数绑定 -->
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
-			<bean class="org.openwebflow.mvc.support.WebFlowHandlerMethodArgumentResolver" />
+			<bean class="org.openwebflow.mvc.event.EventHandlerMethodArgumentResolver" />
+			<bean class="org.openwebflow.mvc.helper.WebFlowHandlerMethodArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
-
+	
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
