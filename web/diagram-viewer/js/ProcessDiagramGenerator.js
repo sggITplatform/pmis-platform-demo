@@ -1041,7 +1041,7 @@ var ProcessDiagramGenerator = {
 				+ '<div><b>activityId</b>: {activityId}</div>'
 				+ '<div><b>name</b>: {name}</div>'
 				+ '<div><b>type</b>: {type}</div>';
-		if(activity.showUpdateButton&&type=='userTask')
+		if(activity.showUpdateButton&&values.type=='userTask')
 		{
 				TPL_ACTIVITY_INFO += '<div><a href=\"../grantActivity.action?processDefId='+activity.processDefId+'&activityId={activityId}\" target=\"_blank\">Update Permissions</a></div>';
 		}

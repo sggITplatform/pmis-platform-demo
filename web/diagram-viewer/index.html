@@ -75,8 +75,7 @@ $(document).ready(function(){
       click: function(canvas, element, contextObject){
         var mouseEvent = this;
         console.log("[CLICK] mouseEvent: %o, canvas: %o, clicked element: %o, contextObject: %o", mouseEvent, canvas, element, contextObject);
-        
-        contextObject.showUpdateButton=(processInstanceId==null);
+        contextObject.showUpdateButton=(processInstanceId==null?true:false);
         contextObject.processDefId=processDefinitionId;
         
 				ProcessDiagramGenerator.showActivityInfo(contextObject);
