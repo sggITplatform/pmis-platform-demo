@@ -1031,7 +1031,7 @@ var ProcessDiagramGenerator = {
 	showActivityInfo: function(activity){
 		var diagramInfo = $("#" + this.options.diagramInfoId);
 		if (!diagramInfo) return;
-		
+
 		var values = {
 			activityId: activity.getId(),
 			name: activity.getProperty("name"),
@@ -1041,11 +1041,16 @@ var ProcessDiagramGenerator = {
 				+ '<div><b>activityId</b>: {activityId}</div>'
 				+ '<div><b>name</b>: {name}</div>'
 				+ '<div><b>type</b>: {type}</div>';
+		if(activity.showUpdateButton&&type=='userTask')
+		{
+				TPL_ACTIVITY_INFO += '<div><a href=\"../grantActivity.action?processDefId='+activity.processDefId+'&activityId={activityId}\" target=\"_blank\">Update Permissions</a></div>';
+		}
 		var TPL_CALLACTIVITY_INFO = ''
 				+ '<div><b>collapsed</b>: {collapsed}</div>'
 				+ '<div><b>processDefinitonKey</b>: {processDefinitonKey}</div>';
 		
 		var template = TPL_ACTIVITY_INFO;
+
 		if (activity.getProperty("type") == "callActivity") {
 			values.collapsed = activity.getProperty("collapsed");
 			values.processDefinitonKey = activity.getProperty("processDefinitonKey");

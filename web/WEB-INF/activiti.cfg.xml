@@ -5,6 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/tx   http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
+	<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="org.h2.Driver" />
@@ -16,8 +17,11 @@
 		<property name="maxIdle" value="20" />
 		<property name="minIdle" value="10" />
 	</bean>
+ 	<bean class="demo.mvc.PrepareTestUserRecords">
+		<property name="processEngine" ref="processEngine"></property>
+	</bean>
+ 	-->
  
-	<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -30,8 +34,7 @@
 		<property name="maxIdle" value="20" />
 		<property name="minIdle" value="10" />
 	</bean>
- 	-->
-
+ 
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 		<!-- 
 		<property name="identityService" ref="identityService" />
@@ -62,11 +65,6 @@
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-
-	<!-- Only for TEST!!! -->
-	<bean class="demo.mvc.PrepareTestUserRecords">
-		<property name="processEngine" ref="processEngine"></property>
 	</bean>
  
 	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">

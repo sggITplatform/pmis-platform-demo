@@ -23,7 +23,7 @@
 
 <p>${processDef.name}</p>
 <p>${processDef.description}</p>
-<form method="POST" action="${pageContext.request.contextPath}//workflow/doStartProcess.action">
+<form method="POST" action="${pageContext.request.contextPath}/workflow/doStartProcess.action">
 	<p>
 	ID<span lang="zh-cn">：</span><input type="text" name="processDefId" size="24" value="${processDef.id}"></p>
 	<p>

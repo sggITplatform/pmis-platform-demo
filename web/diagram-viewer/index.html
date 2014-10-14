@@ -75,7 +75,12 @@ $(document).ready(function(){
       click: function(canvas, element, contextObject){
         var mouseEvent = this;
         console.log("[CLICK] mouseEvent: %o, canvas: %o, clicked element: %o, contextObject: %o", mouseEvent, canvas, element, contextObject);
-
+        
+        contextObject.showUpdateButton=(processInstanceId==null);
+        contextObject.processDefId=processDefinitionId;
+        
+				ProcessDiagramGenerator.showActivityInfo(contextObject);
+        
         if (contextObject.getProperty("type") == "callActivity") {
           var processDefinitonKey = contextObject.getProperty("processDefinitonKey");
           var processDefinitons = contextObject.getProperty("processDefinitons");
@@ -95,13 +100,13 @@ $(document).ready(function(){
         //console.log("[OVER] mouseEvent: %o, canvas: %o, clicked element: %o, contextObject: %o", mouseEvent, canvas, element, contextObject);
 
         // TODO: show tooltip-window with contextObject info
-        ProcessDiagramGenerator.showActivityInfo(contextObject);
+        //ProcessDiagramGenerator.showActivityInfo(contextObject);
       },
       out: function(canvas, element, contextObject){
         var mouseEvent = this;
         //console.log("[OUT] mouseEvent: %o, canvas: %o, clicked element: %o, contextObject: %o", mouseEvent, canvas, element, contextObject);
 
-        ProcessDiagramGenerator.hideInfo();
+        //ProcessDiagramGenerator.hideInfo();
       }
     }
   };
