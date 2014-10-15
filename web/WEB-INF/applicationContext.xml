@@ -9,11 +9,13 @@
 	<context:annotation-config />
 	<!-- 处理@Resource -->
 	<context:component-scan base-package="demo.ioc" />
+	<context:component-scan base-package="pmis.*.service" />
+	<context:component-scan base-package="pmis.*.entity" />
+	<context:component-scan base-package="pmis.*.dao" />
 
 	<import resource="activiti.cfg.xml" />
 	<import resource="security.xml" />
 	<import resource="hibernate.xml" />
-	<import resource="services.xml" />
 	
 	<!-- 设置servletContext中可访问的spring beans -->
 	<bean class="demo.ioc.SpringToolBox">

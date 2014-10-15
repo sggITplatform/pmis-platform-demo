@@ -19,11 +19,14 @@
  */
 package pmis.sys1.dao.impl;
 
+import org.springframework.stereotype.Component;
+
 import pmis.sys1.dao.UserDao;
 import pmis.sys1.entity.User;
 import pmis.web.support.dao.EntityDao;
 import pmis.web.support.dao.impl.HibernateBasedDao;
 
+@Component
 public class UserDaoImpl extends HibernateBasedDao<User, String> implements EntityDao<User, String>, UserDao
 {
 

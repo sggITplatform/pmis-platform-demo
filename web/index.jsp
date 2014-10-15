@@ -45,6 +45,7 @@
     <li>报表组件 <a href="./report?type=pdf" target="_blank" class="btn-warning">查看PDF输出示例</a> <a href="./report?type=doc" target="_blank" class="btn-warning">查看Word输出示例</a></li>
     <li>校验码生成组件 <a href="./kaptcha.jpg" target="_blank" class="btn-warning">查看示例</a></li>
     <li>甘特图组件 <a href="./gantt.htm" target="_blank" class="btn-warning">查看示例</a></li>
+    <li>MVC+Hibernate框架 <a href="./listUsers.action" target="_blank" class="btn-warning">查看示例</a></li>
   </ul>
   <p>&nbsp;</p>
   <p>OpenWebFlow的功能演示需要登录，点击此处登录--&gt;<a class="btn btn-danger" href="login.jsp">现在登录！</a></p>
