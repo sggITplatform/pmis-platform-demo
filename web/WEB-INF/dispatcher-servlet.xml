@@ -14,6 +14,7 @@
 	<!-- 把标记了@Controller注解的类转换为bean -->
 	<context:component-scan base-package="org.openwebflow.mvc" />
 	<context:component-scan base-package="demo.mvc" />
+	<context:component-scan base-package="pmis.*.controller" />
 
 	<!-- ActionHandler注册器，WebFlowDispatcherController会用到 -->
 	<bean id="customProcessActionHandlerFactory"

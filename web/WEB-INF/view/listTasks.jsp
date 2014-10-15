@@ -26,7 +26,7 @@
 		<td>ID</td>
 		<td>名称</td>
 		<td>流程ID</td>
-		<td>办理人</td>
+		<td>指定办理人</td>
 		<td>发起时间</td>
 		<td>摘要内容</td>
 		<td>操作</td>

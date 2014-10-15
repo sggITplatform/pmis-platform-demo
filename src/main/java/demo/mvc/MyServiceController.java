@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior;
+import org.activiti.engine.impl.el.Expression;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
@@ -43,6 +44,12 @@ public class MyServiceController
 		TaskDefinition taskDefinition = ((UserTaskActivityBehavior) activity.getActivityBehavior()).getTaskDefinition();
 		model.put("taskDefinition", taskDefinition);
 		model.put("processDefinition", pde);
+		
+		model.put("assignee",taskDefinition.getAssigneeExpression().getExpressionText());
+		for(org.activiti.engine.delegate.Expression expr:taskDefinition.getCandidateGroupIdExpressions())
+		{
+			expr.getExpressionText();
+		}
 		return "/grantActivity";
 	}
 
