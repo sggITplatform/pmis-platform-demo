@@ -1,25 +1,29 @@
 package demo.mvc;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.openwebflow.mvc.event.DoStartProcessEventContext;
-import org.openwebflow.mvc.event.EventContextHolder;
-import org.openwebflow.mvc.event.EventHandlerClass;
-import org.openwebflow.mvc.event.EventHandlerMethod;
 import org.openwebflow.mvc.event.EventType;
+import org.openwebflow.mvc.event.ctx.DoStartProcessEventContext;
+import org.openwebflow.mvc.event.ctx.EventContextHolder;
+import org.openwebflow.mvc.event.handler.EventHandlerClass;
+import org.openwebflow.mvc.event.handler.EventHandlerMethod;
+import org.openwebflow.tool.ProcessEngineTool;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 
-import demo.service.VacationRequestService;
+import demo.service.impl.VacationRequestServiceImpl;
 
 @EventHandlerClass
 @Component()
 public class MyEventHandler
 {
-	@Resource(name = "vacationRequestService")
-	VacationRequestService _vacationRequestService;
+	@Autowired
+	private ProcessEngineTool _processEngineEx;
+
+	@Autowired
+	VacationRequestServiceImpl _vacationRequestService;
 
 	@EventHandlerMethod(eventType = EventType.BeforeDoStartProcess, formKey = "/startVacationRequest")
 	public void beforeDoStartVacationRequest(EventContextHolder holder, String processDefId, ModelMap model,

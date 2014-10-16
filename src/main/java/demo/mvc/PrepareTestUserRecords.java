@@ -1,27 +1,19 @@
 package demo.mvc;
 
 import org.activiti.engine.IdentityService;
-import org.activiti.engine.ProcessEngine;
+import org.openwebflow.tool.ProcessEngineTool;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class PrepareTestUserRecords implements InitializingBean
 {
-	ProcessEngine _processEngine;
-
-	public ProcessEngine getProcessEngine()
-	{
-		return _processEngine;
-	}
-
-	public void setProcessEngine(ProcessEngine processEngine)
-	{
-		_processEngine = processEngine;
-	}
+	@Autowired
+	private ProcessEngineTool _processEngineEx;
 
 	@Override
 	public void afterPropertiesSet() throws Exception
 	{
-		IdentityService is = _processEngine.getIdentityService();
+		IdentityService is = _processEngineEx.getProcessEngine().getIdentityService();
 		is.saveUser(is.newUser("kermit"));
 		is.saveUser(is.newUser("fozzie"));
 		is.saveGroup(is.newGroup("admin"));

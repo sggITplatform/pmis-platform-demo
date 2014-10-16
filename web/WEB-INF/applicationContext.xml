@@ -9,6 +9,7 @@
 	<context:annotation-config />
 	<!-- 处理@Resource -->
 	<context:component-scan base-package="demo.ioc" />
+	<context:component-scan base-package="demo.service" />
 	<context:component-scan base-package="pmis.*.service" />
 	<context:component-scan base-package="pmis.*.entity" />
 	<context:component-scan base-package="pmis.*.dao" />
@@ -23,6 +24,7 @@
 		<property name="tools">
 			<!-- map中存储可访问的spring bean及其变量名 -->
 			<map>
+				<entry key="processEngineTool" value-ref="processEngineTool" />
 				<entry key="processTool">
 					<bean class="demo.ioc.ProcessTool"></bean>
 				</entry>
@@ -43,7 +45,4 @@
 		<property name="minIdle" value="10" />
 	</bean>
 
-	<bean id="vacationRequestService" class="demo.service.VacationRequestService">
-	</bean>
-	
 </beans>  

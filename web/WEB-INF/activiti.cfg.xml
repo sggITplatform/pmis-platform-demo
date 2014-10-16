@@ -2,10 +2,11 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 	http://www.springframework.org/schema/tx   http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="org.h2.Driver" />
@@ -17,11 +18,9 @@
 		<property name="maxIdle" value="20" />
 		<property name="minIdle" value="10" />
 	</bean>
- 	<bean class="demo.mvc.PrepareTestUserRecords">
-		<property name="processEngine" ref="processEngine"></property>
-	</bean>
- 	-->
+	<bean class="demo.mvc.PrepareTestUserRecords"/>
  
+	<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -34,7 +33,8 @@
 		<property name="maxIdle" value="20" />
 		<property name="minIdle" value="10" />
 	</bean>
- 
+ 	-->
+
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 		<!-- 
 		<property name="identityService" ref="identityService" />
@@ -50,7 +50,7 @@
 		<property name="mailServerDefaultFrom" value="bluejoe@cnic.cn" />
 		<property name="mailServerUsername" value="sdb-support@cnic.cn" />
 		<property name="mailServerPassword" value="sdb-support@cnic.cn" />
-		
+
 		<property name="customFormTypes">
 			<list>
 				<bean class="org.openwebflow.UserFormType" />
@@ -66,26 +66,39 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
- 
-	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+
+	<bean class="org.activiti.spring.ProcessEngineFactoryBean">
 		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
 	</bean>
 
-	<bean id="identityService" class="org.openwebflow.MyIdentityService">
-	</bean>
-
-	<bean id="webFlowConfiguration" class="org.openwebflow.mvc.SimpleWebFlowConfiguration">
-		<property name="defaultStartProcessFormView" value="/startProcessForm" />
-		<property name="defaultStartProcessActionView" value="/doStartProcess" />
-		<property name="defaultCompleteTaskFormView" value="/completeTaskForm" />
-		<property name="defaultCompleteTaskActionView" value="/doCompleteTask" />
-		<property name="defaultClaimTaskActionView" value="redirect:/workflow/listTaskQueue.action" />
-		<property name="formVariablesFilter">
-			<bean class="org.openwebflow.mvc.PrefixFormVariablesFilter">
-				<property name="prefix" value="var_" />
+	<!-- 主要用到的对象 -->
+	<bean id="processEngineTool" class="org.openwebflow.tool.impl.ProcessEngineToolImpl">
+		<property name="webFlowConfiguration">
+			<bean id="webFlowConfiguration" class="org.openwebflow.mvc.WebFlowConfiguration">
+				<property name="defaultStartProcessFormView" value="/startProcessForm" />
+				<property name="defaultStartProcessActionView" value="/doStartProcess" />
+				<property name="defaultCompleteTaskFormView" value="/completeTaskForm" />
+				<property name="defaultCompleteTaskActionView" value="/doCompleteTask" />
+				<property name="defaultClaimTaskActionView" value="redirect:/workflow/listTaskQueue.action" />
+				<property name="formVariablesFilter">
+					<bean class="org.openwebflow.mvc.PrefixFormVariablesFilter">
+						<property name="prefix" value="var_" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<!-- 自定义权限管理 -->
+		<property name="loadPermissionsOnStartup" value="true" />
+		<property name="activityPermissionService">
+			<bean class="org.openwebflow.permission.impl.ActivityPermissionServiceImpl">
+				<property name="permissionDao">
+					<bean class="org.openwebflow.permission.impl.ActivityPermissionDaoImpl"/>
+				</property>
 			</bean>
 		</property>
 	</bean>
-
+	
+	<!-- 加载service和entity -->
+	<context:component-scan base-package="org.openwebflow.permission" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
 </beans>

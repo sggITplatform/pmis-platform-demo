@@ -29,7 +29,7 @@
 <body>
 <%@ include file="/WEB-INF/view/_header.jsp" %>
 <div style="margin: 10pt;"> <!-- InstanceBeginEditable name="EditRegion2" -->
-  <p class="STYLE100">设置活动的执行权限</p>
+  <p class="STYLE100">设置活动的执行权限，注意对已创建的任务无效~~</p>
   <form method="POST" action="${pageContext.request.contextPath}/doGrantActivity.action">
     <p> <span lang="zh-cn">所属流程：</span>
       <input type="text" name="processDefId" size="24" value="${processDefinition.id}">
@@ -40,14 +40,14 @@
       <span lang="zh-cn">NAME： ${activity.getProperty("name")}</span><br>
       <span lang="zh-cn">TYPE： ${activity.getProperty("type")}</span></p>
     <p><span lang="zh-cn">直接指定用户：</span>
-      <input type="text" name="assigneeExpression" size="24" value="${taskDefinition.assigneeExpression}">
+      <input type="text" name="assigneeExpression" size="24" value="${assignee}">
       <br>
       <span lang="zh-cn">可分配到组：</span>
-      <input type="text" name="candidateGroupIdExpressions" size="24" value="${taskDefinition.candidateGroupIdExpressions}">
-      <br>
+      <input type="text" name="candidateGroupIdExpressions" size="24" value="${candidateGroupIds}">
+      （多个组ID之间采用分号分隔）<br>
       <span lang="zh-cn">可分配到用户：</span>
-      <input type="text" name="candidateUserIdExpressions" size="24" value="${taskDefinition.candidateUserIdExpressions}">
-    </p>
+      <input type="text" name="candidateUserIdExpressions" size="24" value="${candidateUserIds}">
+    （多个组用户D之间采用分号分隔）</p>
     <p>
       <input type="submit" value="提交" name="B1">
       <input type="reset" value="重置" name="B2">

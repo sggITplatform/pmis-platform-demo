@@ -18,14 +18,14 @@
 
 	<!-- ActionHandler注册器，WebFlowDispatcherController会用到 -->
 	<bean id="customProcessActionHandlerFactory"
-		class="org.openwebflow.mvc.event.AnnotationedEventHandlerFactory">
+		class="org.openwebflow.mvc.event.handler.AnnotationedEventHandlerFactory">
 	</bean>
 
 	<!-- 支持自定义的ProcessRequest、TaskRequest参数绑定 -->
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
 			<bean class="org.openwebflow.mvc.event.EventHandlerMethodArgumentResolver" />
-			<bean class="org.openwebflow.mvc.helper.WebFlowHandlerMethodArgumentResolver" />
+			<bean class="org.openwebflow.mvc.tool.WebFlowHandlerMethodArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 

@@ -2,49 +2,45 @@ package demo.ioc;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.openwebflow.tool.ProcessEngineTool;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class ProcessTool
 {
-	@Resource(name = "processEngine")
-	private ProcessEngine _processEngine;
+	@Autowired
+	private ProcessEngineTool _processEngineEx;
 
 	public long getActiveProcessesCount()
 	{
-		//return _processEngine.getRuntimeService().createProcessInstanceQuery().active().count();
-		return _processEngine.getHistoryService().createHistoricProcessInstanceQuery().unfinished().count();
+		return _processEngineEx.getActiveProcessesCount();
 	}
 
 	public long getAssignedTasksCount()
 	{
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		return _processEngine.getTaskService().createTaskQuery().taskAssignee(userId).count();
+		return _processEngineEx.getAssignedTasksCount(userId);
 	}
 
 	public long getHistoricProcessesCount()
 	{
-		return _processEngine.getHistoryService().createHistoricProcessInstanceQuery().finished().count();
+		return _processEngineEx.getHistoricProcessesCount();
 	}
 
 	public List<ProcessDefinition> getProcessDefs()
 	{
-		//String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		return _processEngine.getRepositoryService().createProcessDefinitionQuery().list();
+		return _processEngineEx.getProcessDefs();
 	}
 
 	public long getProcessDefsCount()
 	{
-		//String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		return _processEngine.getRepositoryService().createProcessDefinitionQuery().count();
+		return _processEngineEx.getProcessDefsCount();
 	}
 
 	public long getTaskQueueCount()
 	{
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		return _processEngine.getTaskService().createTaskQuery().taskCandidateUser(userId).count();
+		return _processEngineEx.getTaskQueueCount(userId);
 	}
 }

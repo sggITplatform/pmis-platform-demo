@@ -37,6 +37,16 @@
       </ul>
       <ul class="nav navbar-nav">
         <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">查看流程定义<span class="STYLE1">(${tools.processTool.processDefsCount})</span> </a>
+          <ul class="dropdown-menu" role="menu">
+          	<c:forEach items="${tools.processTool.processDefs}" var="processDef">
+            <li><a href="${pageContext.request.contextPath}/diagram-viewer/index.html?processDefinitionId=${processDef.id}">${processDef.name}</a></li>
+            </c:forEach>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">流程列表 <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="${pageContext.request.contextPath}/workflow/listActiveProcesses.action">运行中流程<span class="STYLE1">(${tools.processTool.activeProcessesCount})</span></a></li>
