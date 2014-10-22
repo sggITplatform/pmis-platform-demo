@@ -12,6 +12,8 @@ import org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.impl.task.TaskDefinition;
+import org.openwebflow.identity.MyUserManager;
+import org.openwebflow.mvc.VacationRequestServiceImpl;
 import org.openwebflow.mvc.tool.WebFlowParam;
 import org.openwebflow.permission.impl.ActivityPermissionImpl;
 import org.openwebflow.tool.ContextToolHolder;
@@ -21,8 +23,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import demo.service.impl.VacationRequestServiceImpl;
 
 @Controller
 public class MyServiceController
@@ -31,13 +33,16 @@ public class MyServiceController
 	ProcessEngineTool _processEngineEx;
 
 	@Autowired
+	MyUserManager _groupViewService;
+
+	@Autowired
 	VacationRequestServiceImpl _vacationRequestService;
 
 	@RequestMapping("/doGrantActivity.action")
 	public String doGrantActivity(@WebFlowParam
-	ContextToolHolder holder, String activityId, String assigneeExpression, String candidateGroupIdExpressions,
-			String candidateUserIdExpressions, ModelMap model, HttpServletRequest request, HttpServletResponse response)
-			throws Exception
+	ContextToolHolder holder, String activityId, String assigneeExpression, @RequestParam("candidateGroupIds")
+	String[] candidateGroupIds, String candidateUserIdExpressions, ModelMap model, HttpServletRequest request,
+			HttpServletResponse response) throws Exception
 	{
 		ProcessDefinitionEntity pde = holder.getProcessDefinitionTool().getProcessDefinitionEntity();
 
@@ -49,7 +54,7 @@ public class MyServiceController
 		ap.setProcessDefId(pde.getProcessDefinition().getId());
 		ap.setActivityId(activityId);
 		ap.setAssignedUser(assigneeExpression);
-		ap.setGrantedGroups(candidateGroupIdExpressions);
+		ap.setGrantedGroups(StringUtils.arrayToDelimitedString(candidateGroupIds, ";"));
 		ap.setGrantedUsers(candidateUserIdExpressions);
 		_processEngineEx.getActivityPermissionService().update(ap);
 
@@ -58,15 +63,20 @@ public class MyServiceController
 		return "/doGrantActivity";
 	}
 
-	private String getExpressionsString(Set<Expression> expressions)
+	private String getExpressionText(Set<Expression> expressions)
 	{
-		List<String> groups = new ArrayList<String>();
+		List<String> names = getExpressionTextList(expressions);
+		return StringUtils.arrayToDelimitedString(names.toArray(), ";");
+	}
+
+	private List<String> getExpressionTextList(Set<Expression> expressions)
+	{
+		List<String> names = new ArrayList<String>();
 		for (Expression expr : expressions)
 		{
-			groups.add(expr.getExpressionText());
+			names.add(expr.getExpressionText());
 		}
-
-		return StringUtils.arrayToDelimitedString(groups.toArray(), ";");
+		return names;
 	}
 
 	@RequestMapping("/grantActivity.action")
@@ -78,13 +88,23 @@ public class MyServiceController
 
 		ActivityImpl activity = (ActivityImpl) pde.findActivity(activityId);
 		model.put("activity", activity);
-		TaskDefinition taskDefinition = ((UserTaskActivityBehavior) activity.getActivityBehavior()).getTaskDefinition();
+		final TaskDefinition taskDefinition = ((UserTaskActivityBehavior) activity.getActivityBehavior())
+				.getTaskDefinition();
 		model.put("taskDefinition", taskDefinition);
 		model.put("processDefinition", pde);
 		Expression assigneeExpr = taskDefinition.getAssigneeExpression();
+		model.put("allGroups", _groupViewService.getGroups());
 		model.put("assignee", assigneeExpr == null ? "" : assigneeExpr.getExpressionText());
-		model.put("candidateGroupIds", getExpressionsString(taskDefinition.getCandidateGroupIdExpressions()));
-		model.put("candidateUserIds", getExpressionsString(taskDefinition.getCandidateUserIdExpressions()));
+		model.put("candidateGroupIds", getExpressionText(taskDefinition.getCandidateGroupIdExpressions()));
+		model.put("candidateUserIds", getExpressionText(taskDefinition.getCandidateUserIdExpressions()));
+
+		model.put("command", new Object()
+		{
+			public List<String> getCandidateGroupIds()
+			{
+				return getExpressionTextList(taskDefinition.getCandidateGroupIdExpressions());
+			}
+		});
 
 		return "/grantActivity";
 	}

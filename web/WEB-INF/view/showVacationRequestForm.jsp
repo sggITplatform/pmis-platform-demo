@@ -6,14 +6,14 @@
 <table class="table table-condensed">
   <tr>
     <td>表单号</td>
-    <td>${bean.ID}</td>
+    <td>${bean.id}</td>
   </tr>
   <tr>
     <td>申请天数</td>
-    <td>${bean.DAYS}</td>
+    <td>${bean.days}</td>
   </tr>
   <tr>
     <td>事由</td>
-    <td>${bean.MOTIVATION}</td>
+    <td>${bean.motivation}</td>
   </tr>
 </table>

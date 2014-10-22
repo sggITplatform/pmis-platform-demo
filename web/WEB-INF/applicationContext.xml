@@ -8,8 +8,6 @@
 
 	<context:annotation-config />
 	<!-- 处理@Resource -->
-	<context:component-scan base-package="demo.ioc" />
-	<context:component-scan base-package="demo.service" />
 	<context:component-scan base-package="pmis.*.service" />
 	<context:component-scan base-package="pmis.*.entity" />
 	<context:component-scan base-package="pmis.*.dao" />

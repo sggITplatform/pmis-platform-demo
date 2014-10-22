@@ -22,7 +22,7 @@
 <!-- InstanceBeginEditable name="EditRegion2" -->
 
 <p>${task.description}</p>
-<form method="POST" action="${pageContext.request.contextPath}//workflow/doCompleteTask.action">
+<form method="POST" action="${pageContext.request.contextPath}/workflow/doCompleteTask.action">
 	<p>
 	ID<span lang="zh-cn">：</span><input type="text" name="taskId" size="24" value="${task.id}"></p>
 	<p>

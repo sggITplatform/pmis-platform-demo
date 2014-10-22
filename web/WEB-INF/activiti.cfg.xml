@@ -18,7 +18,18 @@
 		<property name="maxIdle" value="20" />
 		<property name="minIdle" value="10" />
 	</bean>
-	<bean class="demo.mvc.PrepareTestUserRecords"/>
+
+	<bean class="demo.ioc.PrepareTestUserRecords">
+		<property name="dataSource" ref="bussinessDataSource" />
+		<property name="userManager" ref="myUserManager" />
+		<!-- 删除业务表里面的记录，因为每次根据内存表生成出来的流程会出现重复ID -->
+		<property name="dirtyBussinessTableNames">
+			<list>
+				<value>vacation_request_tab</value>
+				<value>activity_permission_tab</value>
+			</list>
+		</property>
+	</bean>
  
 	<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
@@ -34,11 +45,10 @@
 		<property name="minIdle" value="10" />
 	</bean>
  	-->
+ 	<!-- 自定义的用户管理 -->
+	<bean id="myUserManager" class="org.openwebflow.identity.MyUserManager" />
 
-	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-		<!-- 
-		<property name="identityService" ref="identityService" />
-		 -->
+	<bean id="processEngineConfiguration" class="org.openwebflow.ProcessEngineConfiguration">
 		<property name="dataSource" ref="dataSource" />
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="databaseSchemaUpdate" value="true" />
@@ -50,16 +60,14 @@
 		<property name="mailServerDefaultFrom" value="bluejoe@cnic.cn" />
 		<property name="mailServerUsername" value="sdb-support@cnic.cn" />
 		<property name="mailServerPassword" value="sdb-support@cnic.cn" />
-
-		<property name="customFormTypes">
-			<list>
-				<bean class="org.openwebflow.UserFormType" />
-			</list>
-		</property>
 		
 		<!-- 自动部署 -->
 		<property name="deploymentResources" value="./WEB-INF/models/*.bpmn" />
 		<property name="deploymentMode" value="single-resource" />
+		
+		<!-- 自定义用户组关联 -->
+		<property name="customMembershipManager" ref="myUserManager" />
+
 	</bean>
 
 	<bean id="transactionManager"
@@ -92,7 +100,7 @@
 		<property name="activityPermissionService">
 			<bean class="org.openwebflow.permission.impl.ActivityPermissionServiceImpl">
 				<property name="permissionDao">
-					<bean class="org.openwebflow.permission.impl.ActivityPermissionDaoImpl"/>
+					<bean class="org.openwebflow.permission.impl.ActivityPermissionDaoImpl" />
 				</property>
 			</bean>
 		</property>

@@ -17,6 +17,12 @@ public class ProcessTool
 		return _processEngineEx.getActiveProcessesCount();
 	}
 
+	public long getMyActiveProcessesCount()
+	{
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		return _processEngineEx.getActiveProcessesCount(userId);
+	}
+
 	public long getAssignedTasksCount()
 	{
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -26,6 +32,12 @@ public class ProcessTool
 	public long getHistoricProcessesCount()
 	{
 		return _processEngineEx.getHistoricProcessesCount();
+	}
+
+	public long getMyHistoricProcessesCount()
+	{
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		return _processEngineEx.getHistoricProcessesCount(userId);
 	}
 
 	public List<ProcessDefinition> getProcessDefs()
