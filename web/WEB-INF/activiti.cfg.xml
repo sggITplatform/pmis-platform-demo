@@ -45,68 +45,59 @@
 		<property name="minIdle" value="10" />
 	</bean>
  	-->
+ 	
  	<!-- 自定义的用户管理 -->
-	<bean id="myUserManager" class="org.openwebflow.identity.MyUserManager" />
-
-	<bean id="processEngineConfiguration" class="org.openwebflow.ProcessEngineConfiguration">
-		<property name="dataSource" ref="dataSource" />
-		<property name="transactionManager" ref="transactionManager" />
-		<property name="databaseSchemaUpdate" value="true" />
-		<property name="jobExecutorActivate" value="false" />
-		
-		<!-- 邮件服务器 -->
-		<property name="mailServerHost" value="smtp.cnic.cn" />
-		<property name="mailServerPort" value="25" />
-		<property name="mailServerDefaultFrom" value="bluejoe@cnic.cn" />
-		<property name="mailServerUsername" value="sdb-support@cnic.cn" />
-		<property name="mailServerPassword" value="sdb-support@cnic.cn" />
-		
-		<!-- 自动部署 -->
-		<property name="deploymentResources" value="./WEB-INF/models/*.bpmn" />
-		<property name="deploymentMode" value="single-resource" />
-		
-		<!-- 自定义用户组关联 -->
-		<property name="customMembershipManager" ref="myUserManager" />
-
-	</bean>
-
+	<bean id="myUserManager" class="demo.identity.MyUserManager" />
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
-	<bean class="org.activiti.spring.ProcessEngineFactoryBean">
-		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
-	</bean>
+	<!-- 配置对象 -->
+	<bean id="processEngineConfiguration" class="org.openwebflow.ProcessEngineConfigurationEx">
+		<property name="dataSource" ref="dataSource" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="databaseSchemaUpdate" value="true" />
+		<property name="jobExecutorActivate" value="false" />
+		
+		<!-- 自动部署 -->
+		<property name="deploymentResources" value="./WEB-INF/models/*.bpmn" />
+		<property name="deploymentMode" value="single-resource" />
+		
+		<!-- 自定义用户组成员关系 -->
+		<property name="customMembershipManager" ref="myUserManager" />
 
-	<!-- 主要用到的对象 -->
-	<bean id="processEngineTool" class="org.openwebflow.tool.impl.ProcessEngineToolImpl">
-		<property name="webFlowConfiguration">
-			<bean id="webFlowConfiguration" class="org.openwebflow.mvc.WebFlowConfiguration">
-				<property name="defaultStartProcessFormView" value="/startProcessForm" />
-				<property name="defaultStartProcessActionView" value="/doStartProcess" />
-				<property name="defaultCompleteTaskFormView" value="/completeTaskForm" />
-				<property name="defaultCompleteTaskActionView" value="/doCompleteTask" />
-				<property name="defaultClaimTaskActionView" value="redirect:/workflow/listTaskQueue.action" />
-				<property name="formVariablesFilter">
-					<bean class="org.openwebflow.mvc.PrefixFormVariablesFilter">
-						<property name="prefix" value="var_" />
+		<!-- 自定义活动权限管理 -->
+		<property name="activityPermissionServiceConfiguration">
+			<bean
+				class="org.openwebflow.permission.ActivityPermissionServiceConfiguration">
+				<property name="loadPermissionsOnStartup" value="true" />
+				<property name="activityPermissionService">
+					<bean
+						class="org.openwebflow.permission.impl.ActivityPermissionServiceImpl">
+						<property name="permissionDao">
+							<bean class="org.openwebflow.permission.impl.ActivityPermissionDaoImpl">
+								<property name="sessionFactory" ref="sessionFactory" />
+							</bean>
+						</property>
 					</bean>
 				</property>
 			</bean>
 		</property>
-		<!-- 自定义权限管理 -->
-		<property name="loadPermissionsOnStartup" value="true" />
-		<property name="activityPermissionService">
-			<bean class="org.openwebflow.permission.impl.ActivityPermissionServiceImpl">
-				<property name="permissionDao">
-					<bean class="org.openwebflow.permission.impl.ActivityPermissionDaoImpl" />
-				</property>
-			</bean>
-		</property>
+	</bean>
+
+	<!-- processEngine -->
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+
+	<!-- processEngineTool -->
+	<bean id="processEngineTool" class="org.openwebflow.tool.impl.ProcessEngineToolImpl">
+		<property name="processEngine" ref="processEngine" />
 	</bean>
 	
 	<!-- 加载service和entity -->
-	<context:component-scan base-package="org.openwebflow.permission" />
+	<context:component-scan base-package="demo.permission" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
 </beans>

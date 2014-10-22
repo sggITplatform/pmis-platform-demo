@@ -14,33 +14,18 @@ public class OAuthController
 {
 	private OAuthAuthenticationSuccessHandler _authenticationSuccessHandler;
 
-	public OAuthAuthenticationSuccessHandler getAuthenticationSuccessHandler()
-	{
-		return _authenticationSuccessHandler;
-	}
-
-	public void setAuthenticationSuccessHandler(OAuthAuthenticationSuccessHandler authenticationSuccessHandler)
-	{
-		_authenticationSuccessHandler = authenticationSuccessHandler;
-	}
-
-	public OAuthUserDetailsReader getUserDetailsReader()
-	{
-		return _userDetailsReader;
-	}
-
-	public void setUserDetailsReader(OAuthUserDetailsReader userDetailsReader)
-	{
-		_userDetailsReader = userDetailsReader;
-	}
+	private RestOperations _restTemplate;
 
 	private OAuthUserDetailsReader _userDetailsReader;
-
-	private RestOperations _restTemplate;
 
 	public OAuthController()
 	{
 		super();
+	}
+
+	public OAuthAuthenticationSuccessHandler getAuthenticationSuccessHandler()
+	{
+		return _authenticationSuccessHandler;
 	}
 
 	public RestOperations getRestTemplate()
@@ -48,9 +33,9 @@ public class OAuthController
 		return _restTemplate;
 	}
 
-	public void setRestTemplate(RestOperations restTemplate)
+	public OAuthUserDetailsReader getUserDetailsReader()
 	{
-		_restTemplate = restTemplate;
+		return _userDetailsReader;
 	}
 
 	@RequestMapping
@@ -59,6 +44,21 @@ public class OAuthController
 		SecurityContextHolder.getContext().setAuthentication(new PreAuthenticatedAuthenticationToken("none", ""));
 		UserDetails ud = _userDetailsReader.loadUserFromOauth(getRestTemplate());
 		getAuthenticationSuccessHandler().handle(arg0, arg1, ud);
+	}
+
+	public void setAuthenticationSuccessHandler(OAuthAuthenticationSuccessHandler authenticationSuccessHandler)
+	{
+		_authenticationSuccessHandler = authenticationSuccessHandler;
+	}
+
+	public void setRestTemplate(RestOperations restTemplate)
+	{
+		_restTemplate = restTemplate;
+	}
+
+	public void setUserDetailsReader(OAuthUserDetailsReader userDetailsReader)
+	{
+		_userDetailsReader = userDetailsReader;
 	}
 
 }

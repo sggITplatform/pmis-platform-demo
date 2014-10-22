@@ -31,14 +31,14 @@ public class AccessTokenRequestConverter implements GenericConverter
 	private Set<ConvertiblePair> convertibleTypes = new HashSet<GenericConverter.ConvertiblePair>(
 			Arrays.asList(new ConvertiblePair(AccessTokenRequest.class, AccessTokenRequest.class)));
 
-	public Set<ConvertiblePair> getConvertibleTypes()
-	{
-		return convertibleTypes;
-	}
-
 	public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType)
 	{
 		return source;
+	}
+
+	public Set<ConvertiblePair> getConvertibleTypes()
+	{
+		return convertibleTypes;
 	}
 
 }

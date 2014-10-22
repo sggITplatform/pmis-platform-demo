@@ -12,8 +12,7 @@ import org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.impl.task.TaskDefinition;
-import org.openwebflow.identity.MyUserManager;
-import org.openwebflow.mvc.VacationRequestServiceImpl;
+import org.openwebflow.ProcessEngineConfigurationEx;
 import org.openwebflow.mvc.tool.WebFlowParam;
 import org.openwebflow.permission.impl.ActivityPermissionImpl;
 import org.openwebflow.tool.ContextToolHolder;
@@ -25,15 +24,19 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import demo.identity.MyUserManager;
 
 @Controller
 public class MyServiceController
 {
 	@Autowired
-	ProcessEngineTool _processEngineEx;
+	MyUserManager _groupViewService;
 
 	@Autowired
-	MyUserManager _groupViewService;
+	private ProcessEngineConfigurationEx _processEngineConfiguration;
+
+	@Autowired
+	ProcessEngineTool _processEngineTool;
 
 	@Autowired
 	VacationRequestServiceImpl _vacationRequestService;
@@ -56,7 +59,8 @@ public class MyServiceController
 		ap.setAssignedUser(assigneeExpression);
 		ap.setGrantedGroups(StringUtils.arrayToDelimitedString(candidateGroupIds, ";"));
 		ap.setGrantedUsers(candidateUserIdExpressions);
-		_processEngineEx.getActivityPermissionService().update(ap);
+		_processEngineConfiguration.getActivityPermissionServiceConfiguration().getActivityPermissionService()
+				.update(ap);
 
 		model.put("activity", activity);
 

@@ -18,36 +18,6 @@ import pmis.commons.reports.ReportUtils.DocType;
 @SuppressWarnings("serial")
 public class ReportServlet extends HttpServlet
 {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		doPost(request, response);
-	}
-
-	@SuppressWarnings("unchecked")
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-			IOException
-	{
-		String docType = request.getParameter("type");
-
-		// 取得jrxml文件路径
-		ReportUtils jasperReport = new ReportUtils(request, response);
-		Map params = new HashMap();
-		try
-		{
-			String jaseperPath = this.getServletContext().getRealPath("/WEB-INF/jrxml/report1.jasper");
-			jasperReport
-					.servletExportDocument(getEnumDocType(docType), jaseperPath, params, getTestRecords(), "员工信息报表");
-		}
-		catch (JRException e)
-		{
-			e.printStackTrace();
-		}
-		catch (ServletException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
 	public static DocType getEnumDocType(String docType)
 	{
 		DocType type = DocType.PDF;
@@ -82,5 +52,35 @@ public class ReportServlet extends HttpServlet
 			sourceList.add(user);
 		}
 		return sourceList;
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		doPost(request, response);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException
+	{
+		String docType = request.getParameter("type");
+
+		// 取得jrxml文件路径
+		ReportUtils jasperReport = new ReportUtils(request, response);
+		Map params = new HashMap();
+		try
+		{
+			String jaseperPath = this.getServletContext().getRealPath("/WEB-INF/jrxml/report1.jasper");
+			jasperReport
+					.servletExportDocument(getEnumDocType(docType), jaseperPath, params, getTestRecords(), "员工信息报表");
+		}
+		catch (JRException e)
+		{
+			e.printStackTrace();
+		}
+		catch (ServletException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

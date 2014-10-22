@@ -5,52 +5,23 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.openwebflow.identity.MyUserManager;
 import org.openwebflow.tool.ProcessEngineTool;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import demo.identity.MyUserManager;
+
 public class PrepareTestUserRecords implements InitializingBean
 {
-	@Autowired
-	private ProcessEngineTool _processEngineEx;
+	private DataSource _dataSource;
 
 	List<String> _dirtyBussinessTableNames = new ArrayList<String>();
 
-	public List<String> getDirtyBussinessTableNames()
-	{
-		return _dirtyBussinessTableNames;
-	}
-
-	public void setDirtyBussinessTableNames(List<String> dirtyBussinessTableNames)
-	{
-		_dirtyBussinessTableNames = dirtyBussinessTableNames;
-	}
+	@Autowired
+	private ProcessEngineTool _processEngineEx;
 
 	MyUserManager _userManager;
-
-	public MyUserManager getUserManager()
-	{
-		return _userManager;
-	}
-
-	public void setUserManager(MyUserManager userManager)
-	{
-		_userManager = userManager;
-	}
-
-	private DataSource _dataSource;
-
-	public DataSource getDataSource()
-	{
-		return _dataSource;
-	}
-
-	public void setDataSource(DataSource dataSource)
-	{
-		_dataSource = dataSource;
-	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception
@@ -70,5 +41,35 @@ public class PrepareTestUserRecords implements InitializingBean
 		{
 			new JdbcTemplate(_dataSource).execute("delete from " + tableName);
 		}
+	}
+
+	public DataSource getDataSource()
+	{
+		return _dataSource;
+	}
+
+	public List<String> getDirtyBussinessTableNames()
+	{
+		return _dirtyBussinessTableNames;
+	}
+
+	public MyUserManager getUserManager()
+	{
+		return _userManager;
+	}
+
+	public void setDataSource(DataSource dataSource)
+	{
+		_dataSource = dataSource;
+	}
+
+	public void setDirtyBussinessTableNames(List<String> dirtyBussinessTableNames)
+	{
+		_dirtyBussinessTableNames = dirtyBussinessTableNames;
+	}
+
+	public void setUserManager(MyUserManager userManager)
+	{
+		_userManager = userManager;
 	}
 }

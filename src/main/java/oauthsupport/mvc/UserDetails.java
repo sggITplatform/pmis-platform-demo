@@ -13,45 +13,15 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
 	private Collection<GrantedAuthority> _authorities;
 
-	private String _email;
-
-	private String _picture;
-
 	private Date _creationDate;
 
-	public Date getCreationDate()
-	{
-		return _creationDate;
-	}
-
-	public void setCreationDate(Date creationDate)
-	{
-		_creationDate = creationDate;
-	}
-
-	public String getPicture()
-	{
-		return _picture;
-	}
-
-	public void setPicture(String picture)
-	{
-		_picture = picture;
-	}
+	private String _email;
 
 	private boolean _enabled;
 
 	private String _fullName;
 
-	public String getFullName()
-	{
-		return _fullName;
-	}
-
-	public void setFullName(String fullName)
-	{
-		_fullName = fullName;
-	}
+	private String _picture;
 
 	private String _uid;
 
@@ -70,15 +40,30 @@ public class UserDetails implements org.springframework.security.core.userdetail
 		return _authorities;
 	}
 
+	public Date getCreationDate()
+	{
+		return _creationDate;
+	}
+
 	public String getEmail()
 	{
 		return _email;
+	}
+
+	public String getFullName()
+	{
+		return _fullName;
 	}
 
 	@Override
 	public String getPassword()
 	{
 		return null;
+	}
+
+	public String getPicture()
+	{
+		return _picture;
 	}
 
 	public String getUid()
@@ -116,6 +101,11 @@ public class UserDetails implements org.springframework.security.core.userdetail
 		return _enabled;
 	}
 
+	public void setCreationDate(Date creationDate)
+	{
+		_creationDate = creationDate;
+	}
+
 	public void setEmail(String email)
 	{
 		_email = email;
@@ -124,6 +114,16 @@ public class UserDetails implements org.springframework.security.core.userdetail
 	public void setEnabled(boolean enabled)
 	{
 		_enabled = enabled;
+	}
+
+	public void setFullName(String fullName)
+	{
+		_fullName = fullName;
+	}
+
+	public void setPicture(String picture)
+	{
+		_picture = picture;
 	}
 
 	public void setUid(String uid)

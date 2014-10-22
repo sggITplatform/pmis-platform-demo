@@ -13,14 +13,15 @@ import pmis.web.support.service.impl.DaoBasedServiceImpl;
 
 @Service("userService")
 @Transactional
-public class UserServiceImpl extends DaoBasedServiceImpl<User, String> implements UserService {
+public class UserServiceImpl extends DaoBasedServiceImpl<User, String> implements UserService
+{
 
 	@Autowired
-	UserServiceImpl( UserDaoImpl userDao)
+	UserServiceImpl(UserDaoImpl userDao)
 	{
 		super(userDao);
 	}
-	
+
 	@Override
 	public List<User> getUsers() throws Exception
 	{

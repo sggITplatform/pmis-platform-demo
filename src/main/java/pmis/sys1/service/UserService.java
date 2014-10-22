@@ -4,8 +4,9 @@ import java.util.List;
 
 import pmis.sys1.entity.User;
 
-public interface UserService {
-	
+public interface UserService
+{
+
 	List<User> getUsers() throws Exception;
 
 }

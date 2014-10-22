@@ -1,7 +1,5 @@
 package oauthsupport.mvc;
 
-import java.net.URI;
-
 import org.codehaus.jackson.node.ObjectNode;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestOperations;
@@ -20,11 +18,6 @@ public class SparklrUserDetailsReader implements OAuthUserDetailsReader
 		return _userInfoURL;
 	}
 
-	public void setUserInfoURL(String userInfoURL)
-	{
-		_userInfoURL = userInfoURL;
-	}
-
 	@Override
 	public UserDetails loadUserFromOauth(RestOperations restTemplate)
 	{
@@ -33,5 +26,10 @@ public class SparklrUserDetailsReader implements OAuthUserDetailsReader
 
 		UserDetails myUserDetails = new UserDetails(email, "", false);
 		return myUserDetails;
+	}
+
+	public void setUserInfoURL(String userInfoURL)
+	{
+		_userInfoURL = userInfoURL;
 	}
 }

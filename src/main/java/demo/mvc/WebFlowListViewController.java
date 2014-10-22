@@ -22,21 +22,19 @@ public class WebFlowListViewController
 		return "/listHistoricProcesses";
 	}
 
-	@RequestMapping("listMyActiveProcesses.action")
-	public String listMyActiveProcesses(ModelMap model)
-	{
-		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.put("processes", _processEngineEx.listActiveProcessInstances(userId));
-		model.put("listActiveProcesses", true);
-		return "/listHistoricProcesses";
-	}
-
 	@RequestMapping("listAssignedTasks.action")
 	public String listAssignedTasks(ModelMap model)
 	{
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		model.put("tasks", _processEngineEx.listAssignedTasks(userId));
 		return "/listTasks";
+	}
+
+	@RequestMapping("listHistoricActivities.action")
+	public String listHistoricActivities(String processId, ModelMap model)
+	{
+		model.put("activities", _processEngineEx.listHistoricActivities(processId));
+		return "/listHistoricActivities";
 	}
 
 	@RequestMapping("listHistoricProcesses.action")
@@ -46,19 +44,21 @@ public class WebFlowListViewController
 		return "/listHistoricProcesses";
 	}
 
+	@RequestMapping("listMyActiveProcesses.action")
+	public String listMyActiveProcesses(ModelMap model)
+	{
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		model.put("processes", _processEngineEx.listActiveProcessInstances(userId));
+		model.put("listActiveProcesses", true);
+		return "/listHistoricProcesses";
+	}
+
 	@RequestMapping("listMyHistoricProcesses.action")
 	public String listMyHistoricProcesses(ModelMap model)
 	{
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 		model.put("processes", _processEngineEx.listHistoricProcesseInstances(userId));
 		return "/listHistoricProcesses";
-	}
-
-	@RequestMapping("listHistoricActivities.action")
-	public String listHistoricActivities(String processId, ModelMap model)
-	{
-		model.put("activities", _processEngineEx.listHistoricActivities(processId));
-		return "/listHistoricActivities";
 	}
 
 	@RequestMapping("listProcessVariables.action")
