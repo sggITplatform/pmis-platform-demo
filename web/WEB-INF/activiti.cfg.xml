@@ -21,7 +21,6 @@
 
 	<bean class="demo.ioc.PrepareTestUserRecords">
 		<property name="dataSource" ref="bussinessDataSource" />
-		<property name="userManager" ref="myUserManager" />
 		<!-- 删除业务表里面的记录，因为每次根据内存表生成出来的流程会出现重复ID -->
 		<property name="dirtyBussinessTableNames">
 			<list>
@@ -47,7 +46,17 @@
  	-->
  	
  	<!-- 自定义的用户管理 -->
-	<bean id="myUserManager" class="demo.identity.MyUserManager" />
+	<bean id="myMembershipManager" class="demo.ioc.MyMembershipManager">
+		<property name="groupsText" value="admin:系统管理员;management:管理者;engineering:工程师" />
+		<property name="permissionsText"
+			value="kermit:admin;kermit:management;fozzie:engineering" />
+	</bean>
+	
+		<!-- 自定义的活动权限表管理 -->
+	<bean id="myActivityPermissionManager" class="demo.ioc.MyActivityPermissionManager">
+		<property name="dataSource" ref="bussinessDataSource" />
+	</bean>
+
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
@@ -61,29 +70,14 @@
 		<property name="jobExecutorActivate" value="false" />
 		
 		<!-- 自动部署 -->
-		<property name="deploymentResources" value="./WEB-INF/models/*.bpmn" />
+		<property name="deploymentResources" value="classpath:/models/*.bpmn" />
 		<property name="deploymentMode" value="single-resource" />
 		
-		<!-- 自定义用户组成员关系 -->
-		<property name="customMembershipManager" ref="myUserManager" />
-
+		<!-- 自定义成员关系管理 -->
+		<property name="customMembershipManager" ref="myMembershipManager" />
 		<!-- 自定义活动权限管理 -->
-		<property name="activityPermissionServiceConfiguration">
-			<bean
-				class="org.openwebflow.permission.ActivityPermissionServiceConfiguration">
-				<property name="loadPermissionsOnStartup" value="true" />
-				<property name="activityPermissionService">
-					<bean
-						class="org.openwebflow.permission.impl.ActivityPermissionServiceImpl">
-						<property name="permissionDao">
-							<bean class="org.openwebflow.permission.impl.ActivityPermissionDaoImpl">
-								<property name="sessionFactory" ref="sessionFactory" />
-							</bean>
-						</property>
-					</bean>
-				</property>
-			</bean>
-		</property>
+		<property name="activityPermissionManager" ref="myActivityPermissionManager" />
+		<property name="loadPermissionsOnStartup" value="true" />
 	</bean>
 
 	<!-- processEngine -->
@@ -95,9 +89,6 @@
 	<bean id="processEngineTool" class="org.openwebflow.tool.impl.ProcessEngineToolImpl">
 		<property name="processEngine" ref="processEngine" />
 	</bean>
-	
-	<!-- 加载service和entity -->
-	<context:component-scan base-package="demo.permission" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	
+
 </beans>

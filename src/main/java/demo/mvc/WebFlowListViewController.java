@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WebFlowListViewController
 {
 	@Autowired
-	private ProcessEngineTool _processEngineEx;
+	private ProcessEngineTool _processEngineTool;
 
 	@RequestMapping("listActiveProcesses.action")
 	public String listActiveProcesses(ModelMap model)
 	{
-		model.put("processes", _processEngineEx.listActiveProcessInstances());
+		model.put("processes", _processEngineTool.listActiveProcessInstances());
 		model.put("listActiveProcesses", true);
 		return "/listHistoricProcesses";
 	}
@@ -26,21 +26,21 @@ public class WebFlowListViewController
 	public String listAssignedTasks(ModelMap model)
 	{
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.put("tasks", _processEngineEx.listAssignedTasks(userId));
+		model.put("tasks", _processEngineTool.listAssignedTasks(userId));
 		return "/listTasks";
 	}
 
 	@RequestMapping("listHistoricActivities.action")
 	public String listHistoricActivities(String processId, ModelMap model)
 	{
-		model.put("activities", _processEngineEx.listHistoricActivities(processId));
+		model.put("activities", _processEngineTool.listHistoricActivities(processId));
 		return "/listHistoricActivities";
 	}
 
 	@RequestMapping("listHistoricProcesses.action")
 	public String listHistoricProcesses(ModelMap model)
 	{
-		model.put("processes", _processEngineEx.listHistoricProcesseInstances());
+		model.put("processes", _processEngineTool.listHistoricProcesseInstances());
 		return "/listHistoricProcesses";
 	}
 
@@ -48,7 +48,7 @@ public class WebFlowListViewController
 	public String listMyActiveProcesses(ModelMap model)
 	{
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.put("processes", _processEngineEx.listActiveProcessInstances(userId));
+		model.put("processes", _processEngineTool.listActiveProcessInstances(userId));
 		model.put("listActiveProcesses", true);
 		return "/listHistoricProcesses";
 	}
@@ -57,7 +57,7 @@ public class WebFlowListViewController
 	public String listMyHistoricProcesses(ModelMap model)
 	{
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.put("processes", _processEngineEx.listHistoricProcesseInstances(userId));
+		model.put("processes", _processEngineTool.listHistoricProcesseInstances(userId));
 		return "/listHistoricProcesses";
 	}
 
@@ -66,11 +66,11 @@ public class WebFlowListViewController
 	{
 		if (historic)
 		{
-			model.put("vars", _processEngineEx.getHistoricProcessVariables(processId));
+			model.put("vars", _processEngineTool.getHistoricProcessVariables(processId));
 		}
 		else
 		{
-			model.put("vars", _processEngineEx.getActiveProcessVariables(processId));
+			model.put("vars", _processEngineTool.getActiveProcessVariables(processId));
 		}
 
 		return "/listVariables";
@@ -80,7 +80,7 @@ public class WebFlowListViewController
 	public String listTaskQueue(ModelMap model)
 	{
 		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-		model.put("tasks", _processEngineEx.listTaskQueue(userId));
+		model.put("tasks", _processEngineTool.listTaskQueue(userId));
 		return "/listTasks";
 	}
 }

@@ -12,7 +12,7 @@ import org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.impl.task.TaskDefinition;
-import org.openwebflow.ProcessEngineConfigurationEx;
+import org.openwebflow.identity.impl.InMemoryMembershipManager;
 import org.openwebflow.mvc.tool.WebFlowParam;
 import org.openwebflow.permission.impl.ActivityPermissionImpl;
 import org.openwebflow.tool.ContextToolHolder;
@@ -24,16 +24,16 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import demo.identity.MyUserManager;
+import demo.ioc.MyActivityPermissionManager;
 
 @Controller
 public class MyServiceController
 {
 	@Autowired
-	MyUserManager _groupViewService;
+	InMemoryMembershipManager _groupViewService;
 
 	@Autowired
-	private ProcessEngineConfigurationEx _processEngineConfiguration;
+	MyActivityPermissionManager _activityPermissionManager;
 
 	@Autowired
 	ProcessEngineTool _processEngineTool;
@@ -59,8 +59,11 @@ public class MyServiceController
 		ap.setAssignedUser(assigneeExpression);
 		ap.setGrantedGroups(StringUtils.arrayToDelimitedString(candidateGroupIds, ";"));
 		ap.setGrantedUsers(candidateUserIdExpressions);
-		_processEngineConfiguration.getActivityPermissionServiceConfiguration().getActivityPermissionService()
-				.update(ap);
+
+		_activityPermissionManager.save(ap);
+		//同步更新活动的权限
+		_processEngineTool.createActivityTool(ap.getProcessDefId(), ap.getActivityId()).grantPermission(
+			ap.getAssignedUser(), ap.getGrantedGroups(), ap.getGrantedUsers());
 
 		model.put("activity", activity);
 
