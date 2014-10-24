@@ -52,7 +52,7 @@
 			value="kermit:admin;kermit:management;fozzie:engineering" />
 	</bean>
 	
-		<!-- 自定义的活动权限表管理 -->
+	<!-- 自定义的活动权限表管理 -->
 	<bean id="myActivityPermissionManager" class="demo.ioc.MyActivityPermissionManager">
 		<property name="dataSource" ref="bussinessDataSource" />
 	</bean>
@@ -70,7 +70,7 @@
 		<property name="jobExecutorActivate" value="false" />
 		
 		<!-- 自动部署 -->
-		<property name="deploymentResources" value="classpath:/models/*.bpmn" />
+		<property name="deploymentResources" value="/WEB-INF/models/*.bpmn" />
 		<property name="deploymentMode" value="single-resource" />
 		
 		<!-- 自定义成员关系管理 -->

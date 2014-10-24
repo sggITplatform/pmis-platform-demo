@@ -26,8 +26,8 @@
   <ul>
     <li>如何使用OpenWebFlow（基于Activiti扩展形成的Web工作流引擎，系本平台原创）和Spring MVC处理业务流程，OpenWebFlow演示如下功能：
       <ul>
-        <li><b>完全非侵入式开发方式：</b>开发者可以像往常一样编写Controller，如果确实需要使用OpenWebFlow的功能，则可以在方法参数中通过注解的方式得到ContextTool，参见<a href="https://github.com/sggITplatform/pmis-platform-demo/blob/master/src/main/java/demo/mvc/MyExtController.java" target="_blank" class="btn-primary">demo.mvc.MyExtController</a></li>
-        <li><b>事件模式：</b>由OpenWebFlow负责流转，客户程序只需要编写指定类型的事件处理器（如：StartProcessEvent），参见<a href="https://github.com/sggITplatform/pmis-platform-demo/blob/master/src/main/java/demo/mvc/MyEventHandler.java" target="_blank" class="btn-primary">demo.mvc.MyEventHandler</a>；</li>
+        <li><b>完全非侵入式开发方式：</b>开发者可以像往常一样编写Controller，如果确实需要使用OpenWebFlow的功能，则可以在方法参数中通过注解的方式得到ContextTool，参见<a href="https://github.com/bluejoe2008/openwebflow/blob/master/src/test/java/demo/mvc/MyExtController.java" target="_blank" class="btn-primary">demo.mvc.MyExtController</a></li>
+        <li><b>事件模式：</b>由OpenWebFlow负责流转，客户程序只需要编写指定类型的事件处理器（如：StartProcessEvent），参见<a href="https://github.com/bluejoe2008/openwebflow/blob/master/src/test/java/demo/mvc/MyEventHandler.java" target="_blank" class="btn-primary">demo.mvc.MyEventHandler</a>；</li>
         <li>此外，OpenWebFlow还负责BPMN模型（如：<a href="https://github.com/sggITplatform/pmis-platform-demo/blob/master/web/WEB-INF/models/vacation.png" target="_blank" class="btn-primary">请假流程模型</a>）的自动
 		部署，所有的BPMN文件放置在<a href="https://github.com/sggITplatform/pmis-platform-demo/tree/master/web/WEB-INF/models" target="_blank" class="btn-primary">/WEB-INF/models</a>目录下；</li>
       </ul>

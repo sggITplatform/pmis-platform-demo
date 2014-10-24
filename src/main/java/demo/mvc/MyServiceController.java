@@ -43,8 +43,9 @@ public class MyServiceController
 
 	@RequestMapping("/doGrantActivity.action")
 	public String doGrantActivity(@WebFlowParam
-	ContextToolHolder holder, String activityId, String assigneeExpression, @RequestParam("candidateGroupIds")
-	String[] candidateGroupIds, String candidateUserIdExpressions, ModelMap model, HttpServletRequest request,
+	ContextToolHolder holder, String activityId, String assigneeExpression,
+			@RequestParam(value = "candidateGroupIds", required = false)
+			String[] candidateGroupIds, String candidateUserIdExpressions, ModelMap model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception
 	{
 		ProcessDefinitionEntity pde = holder.getProcessDefinitionTool().getProcessDefinitionEntity();
